@@ -1,0 +1,18 @@
+.count-card .v-card__text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.count-card .v-card__text i {
+  font-size: 60px;
+}
+.count-card .v-card__text .count-wrapper {
+  margin: 25px 0;
+}
+.count-card .v-card__text .count-wrapper h2 {
+  font-size: 54px;
+}
+.count-card .v-card__text p {
+  font-size: 18px;
+}/*# sourceMappingURL=count.css.map */
