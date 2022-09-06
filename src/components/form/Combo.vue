@@ -49,21 +49,21 @@ export default Vue.extend({
   },
   methods: {
     change(val: any) {
-      const value =
-        typeof val == "undefined" || val == null
-          ? null
-          : val[this.input.valueKey];
+      let value =
+        typeof val == "undefined" || val == null ? null : val[this.input.valueKey];
+
+      if (parseInt(value)) {
+        value = parseInt(value);
+      }
       this.$emit("input", value);
     },
     getData() {
       this.loading = true;
-      Http.get(`${this.input.url}?${serializeQuery(this.input.payload)}`).then(
-        (d) => {
-          this.loading = false;
-          this.input.items = d;
-          this.setModel(this.state[this.input.name]);
-        }
-      );
+      Http.get(`${this.input.url}?${serializeQuery(this.input.payload)}`).then((d) => {
+        this.loading = false;
+        this.input.items = d;
+        this.setModel(this.state[this.input.name]);
+      });
     },
     setModel(value: any) {
       let m = this.input.items.filter((item: any) => {

@@ -39,7 +39,9 @@ export default {
         } else {
           this.activeForm = this.d.form;
         }
-        this.$refs.editAddforms.resetForm();
+        if (typeof this.$refs.editAddforms != "undefined") {
+          this.$refs.editAddforms.resetForm();
+        }
       },
       deep: true,
       immediate: true,
@@ -52,17 +54,18 @@ export default {
       if (!isFormValid) {
         return;
       }
-      refs;
-
+      const formRef = this.$refs.editAddforms;
+      const router = this.$router;
       this.d
         .submit()
         .then((res: any) => {
           if (this.d.callBack != null) {
             this.d.callBack(this.activeForm.state);
           } else {
-            this.$router.back();
+            router.back();
           }
-          this.$refs.editAddforms.resetForm();
+          bus.$emit("getTableData");
+          formRef.resetForm();
         })
         .catch((e: any) => {
           this.activeForm.error = e;

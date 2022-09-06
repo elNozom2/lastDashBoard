@@ -6,7 +6,7 @@
           <v-icon small> mdi-pencil </v-icon>
           {{ $t("edit") }}
         </v-btn>
-        <v-btn @click.prevent="remove" class="mr-4 app-btn  w-200">
+        <v-btn @click.prevent="remove" class="mr-4 app-btn w-200">
           <v-icon small> mdi-delete-outline </v-icon>
           {{ $t("delete") }}
         </v-btn>
@@ -20,11 +20,7 @@
           ></v-skeleton-loader>
         </div>
         <div class="view-list" v-else>
-          <div
-            class="view-item"
-            v-for="(key, index) in d.viewable"
-            :key="index"
-          >
+          <div class="view-item" v-for="(key, index) in d.viewable" :key="index">
             <h2>
               {{ key }}
             </h2>
@@ -32,14 +28,18 @@
               v-if="key.includes('Img') || key.includes('Image')"
               :src="$baseImgUrl + d.data[key]"
               :width="200"
-            /> 
-            <iframe v-else-if="key.includes('Url')" 
-                    width="560" 
-                    height="315" 
-                    :src="`https://www.youtube.com/embed/${d.data[key]}`" 
-                    title="YouTube video player" frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-           
+            />
+            <iframe
+              v-else-if="key.includes('Url')"
+              width="560"
+              height="315"
+              :src="`https://www.youtube.com/embed/${d.data[key]}`"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+
             <iframe
               :src="d.data[key]"
               width="500"
@@ -50,9 +50,9 @@
               :href="$baseImgUrl + d.data[key]"
               target="_blank"
               v-else-if="key.includes('File')"
-            >{{$t('download')}}</a>
-            <h3 v-else-if="d.data[key]" v-html="d.data[key]"> 
-            </h3>
+              >{{ $t("download") }}</a
+            >
+            <h3 v-else-if="d.data[key]" v-html="d.data[key]"></h3>
             <h3 v-else>
               {{ $t("not_defined") }}
             </h3>
@@ -66,14 +66,14 @@
 <script lang="ts">
 import Vue from "vue";
 import View from "./view";
-import { bus } from '@/main'
-import { Delete } from "@/repositories/global"
+import { bus } from "@/main";
+import { Delete } from "@/repositories/global";
 export default Vue.extend({
-  data(){
-      return{
-          loading : true
-      }
-  },    
+  data() {
+    return {
+      loading: true,
+    };
+  },
 
   props: {
     d: {
@@ -88,16 +88,16 @@ export default Vue.extend({
       this.$router.push(path);
     },
     remove() {
-       Delete({table : this.d.table ,id : this.d.id}).then((res:any) => {
-          const currentPath = this.$route.path;
-          const path = currentPath.replace("view", "");
-          // this.$router.push(path)
-          bus.$emit('getTableData');
-        })
+      Delete({ table: this.d.table, id: this.d.id }).then((res: any) => {
+        const currentPath = this.$route.path;
+        const path = currentPath.replace("view", "");
+        // this.$router.push(path)
+        bus.$emit("getTableData");
+      });
     },
   },
-  mounted(){
-      this.d.find().then(()=>this.loading = false)
-  }
+  mounted() {
+    this.d.find().then(() => (this.loading = false));
+  },
 });
 </script>

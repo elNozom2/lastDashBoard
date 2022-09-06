@@ -1,0 +1,13 @@
+.middleArea {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.maxHeight {
+  height: 100%;
+}
+
+.halfHeight {
+  height: 50%;
+}/*# sourceMappingURL=menus.css.map */

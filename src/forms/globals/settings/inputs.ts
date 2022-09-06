@@ -2,9 +2,7 @@ import Vue from "vue";
 import TextInputComponent from "@/components/form/Text.vue";
 import FileInputComponent from "@/components/form/File.vue";
 import switchInputComponent from "@/components/form/Switch.vue";
-import {
-  DefaultInputInterface,
-} from "@/types";
+import { DefaultInputInterface } from "@/types";
 import { required } from "@/utils/validations/validations";
 
 export const logo: DefaultInputInterface = {
@@ -20,7 +18,6 @@ export const color: DefaultInputInterface = {
   name: "mainColor",
   generateInputHtml: () => Vue.extend(TextInputComponent),
   rules: [(value: string) => required(value)],
-
   label: "mainColor",
   cols: 6,
   type: "text",

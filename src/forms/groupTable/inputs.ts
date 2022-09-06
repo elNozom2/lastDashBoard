@@ -6,7 +6,7 @@ import { required, num } from "@/utils/validations/validations";
 import { DefaultInputInterface, SelectInputInterface } from "@/types";
 
 export const name: DefaultInputInterface = {
-  name: "GroupTableName",
+  name: "name",
   generateInputHtml: () => Vue.extend(TextInputComponent),
   rules: [(value: string) => required(value)],
   label: "name",
@@ -15,7 +15,7 @@ export const name: DefaultInputInterface = {
   value: "",
 };
 export const startTable: DefaultInputInterface = {
-  name: "StartNo",
+  name: "startTable",
   generateInputHtml: () => Vue.extend(TextInputComponent),
   rules: [(value: string) => required(value), (value: string) => num(value)],
   label: "start table",
@@ -24,7 +24,7 @@ export const startTable: DefaultInputInterface = {
   value: "",
 };
 export const countTable: DefaultInputInterface = {
-  name: "TableCount",
+  name: "tableCount",
   generateInputHtml: () => Vue.extend(TextInputComponent),
   rules: [(value: string) => required(value), (value: string) => num(value)],
   label: "countTable",

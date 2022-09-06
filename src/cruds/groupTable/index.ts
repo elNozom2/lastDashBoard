@@ -9,7 +9,6 @@ const editAddInterface: EditAddInterface = {
   title: "groups",
   table: "groupTable",
   form,
-  callBack,
 };
 const editAddCategory = new EditAdd(editAddInterface);
 export default editAddCategory;

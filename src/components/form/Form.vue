@@ -8,12 +8,7 @@
       </v-card-title>
       <v-card-text>
         <v-skeleton-loader v-if="loading" type="article"></v-skeleton-loader>
-        <v-form
-          v-else
-          :valid="form.valid"
-          ref="appForm"
-          enctype="multipart/form-data"
-        >
+        <v-form v-else :valid="form.valid" ref="appForm" enctype="multipart/form-data">
           <v-row>
             <v-col cols="12">
               <v-alert
@@ -42,12 +37,9 @@
               ></component>
             </v-col>
             <v-col cols="12" v-if="form.submit">
-              <v-btn
-                class="app-btn"
-                :loading="form.loading"
-                @click.prevent="submit()"
-                >{{ $t("submit") }}</v-btn
-              >
+              <v-btn class="app-btn" :loading="form.loading" @click.prevent="submit()">{{
+                $t("submit")
+              }}</v-btn>
             </v-col>
             <slot name="form-submit" />
           </v-row>
@@ -72,7 +64,12 @@ export default Vue.extend({
     };
   },
   methods: {
-    submit() {
+    async submit() {
+      const ref = this.$refs.appForm as any;
+      const isFormValid = await ref.validate();
+      if (!isFormValid) {
+        return;
+      }
       this.form.submitAction(this.$refs.appForm);
     },
     async resetForm() {
@@ -116,8 +113,7 @@ export default Vue.extend({
         await this.resetForm();
       }
       this.loading = true;
-      this.form.state[payload.key as keyof typeof this.form.state] =
-        payload.value;
+      this.form.state[payload.key as keyof typeof this.form.state] = payload.value;
       bus.$emit("changeComboValue", payload);
       this.loading = false;
     });
